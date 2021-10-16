@@ -1,8 +1,6 @@
-# MVC
+# MVC Exams
 
 ##### October 17, 2021
-
-[![N|Solid](https://www.comsci.science.kmitl.ac.th/images/logo.png)](https://web.facebook.com/cskmitl)
 
 This repository was created for preparation before testing MVC and used in exams.
 
@@ -37,6 +35,7 @@ npm start
 ├───node_modules
 ├───views
 │   └───home.ejs
+├───.gitignore
 ├───package.json
 ├───README.md
 └───server.js

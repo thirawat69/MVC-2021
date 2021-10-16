@@ -1,8 +1,10 @@
-const express = require("express"); // ใช้งาน module express
-const app = express(); // สร้างตัวแปร app เป็น instance ของ express
-const bodyParser = require("body-parser"); // ใช้งาน module express body-parser
+const express = require("express"); // use module express
+const bodyParser = require("body-parser"); // use module body-parser
 
-//JSON parser
+// create our express app
+const app = express();
+
+// middleware
 app.use(bodyParser.json());
 app.use(
   bodyParser.urlencoded({
@@ -10,12 +12,13 @@ app.use(
   })
 );
 
-//Call router
-app.use("/", require("./controllers/router"));
+// route
+const routes = require("./controllers/router");
+app.use("/", routes);
 
-//Start Server at port ...
-const port = 4000;
+//Configure the server port
+const port = 3000;
 app.listen(port, () => {
-  console.info("[server]  Running server at port " + port);
-  console.info("[server]  http://localhost:" + port);
+  console.info("[server ] listeniing at port:" + port);
+  console.info("[server ] http://localhost:" + port);
 });
