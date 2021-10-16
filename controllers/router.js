@@ -3,9 +3,24 @@ const app = express();
 const logic = require("./logic");
 const books = require("../models/DB.json");
 
-// หน้าแรก path: "/".
+// Home
 app.get("/", (req, res) => {
   res.render("../views/home.ejs");
+});
+
+// page1
+app.get("/PageOne", (req, res) => {
+  res.render("../views/page1.ejs");
+});
+
+// page2
+app.get("/PageTwo", (req, res) => {
+  res.render("../views/page2.ejs");
+});
+
+// Drop1 (page)
+app.get("/Drop1", (req, res) => {
+  res.render("../views/dropdown1.ejs");
 });
 
 // Read
