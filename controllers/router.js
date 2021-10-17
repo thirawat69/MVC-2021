@@ -1,11 +1,35 @@
 const express = require("express");
 const app = express();
+const fs = require("fs"); //include the File System module for CRUD
 const logic = require("./logic");
-const books = require("../models/DB.json");
 
 // Home
 app.get("/", (req, res) => {
-  res.render("../views/home.ejs");
+  try {
+    res.render("../views/home.ejs");
+  } catch (error) {
+    let messageError = {
+      statusCode: error.statusCode || 400,
+      message: error.message || error,
+    };
+    res.status(messageError.statusCode);
+    res.json(messageError);
+  }
+});
+
+// API- show all restaurant
+app.get("/getRestaurant", (req, res) => {
+  try {
+    let result = new logic().readText(); // call logic
+    res.status(200).json(result);
+  } catch (error) {
+    let messageError = {
+      statusCode: error.statusCode || 400,
+      message: error.message || error,
+    };
+    res.status(messageError.statusCode);
+    res.json(messageError);
+  }
 });
 
 // page1
@@ -21,35 +45,6 @@ app.get("/PageTwo", (req, res) => {
 // Drop1 (page)
 app.get("/Drop1", (req, res) => {
   res.render("../views/dropdown1.ejs");
-});
-
-// Read
-app.get("/books", (req, res) => {
-  res.json(books);
-});
-
-// Read by id
-app.get("/books/:id", (req, res) => {
-  res.json(books.find((book) => book.id === req.params.id));
-});
-
-// Write
-app.post("/books", (req, res) => {
-  books.push(req.body);
-  res.status(201).json(req.body);
-});
-
-// Update by id
-app.put("/books/:id", (req, res) => {
-  const updateIndex = books.findIndex((book) => book.id === req.params.id);
-  res.json(Object.assign(books[updateIndex], req.body));
-});
-
-// Delete
-app.delete("/books/:id", (req, res) => {
-  const deletedIndex = books.findIndex((book) => book.id === req.params.id);
-  books.splice(deletedIndex, 1);
-  res.status(204).send();
 });
 
 module.exports = app;

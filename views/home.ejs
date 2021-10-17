@@ -22,11 +22,11 @@
             width: 100%;
         }
 
-        li {
+        ul li {
             float: left;
         }
 
-        li a,
+        ul li a,
         .dropbtn {
             display: inline-block;
             color: white;
@@ -95,25 +95,36 @@
 
     <!-- content in page -->
     <div style="padding:20px;">
-        <h1>Fixed Top Navigation Bar</h1>
-        <h2>Scroll this page to see the effect</h2>
-        <h2>The navigation bar will stay at the top of the page while scrolling</h2>
-        <p>Some text some text some text some text..</p>
-        <p>Some text some text some text some text..</p>
-        <p>Some text some text some text some text..</p>
-        <p>Some text some text some text some text..</p>
-        <p>Some text some text some text some text..</p>
-        <p>Some text some text some text some text..</p>
-        <p>Some text some text some text some text..</p>
-        <p>Some text some text some text some text..</p>
-        <p>Some text some text some text some text..</p>
-        <p>Some text some text some text some text..</p>
-        <p>Some text some text some text some text..</p>
-        <p>Some text some text some text some text..</p>
-        <p>Some text some text some text some text..</p>
-        <p>Some text some text some text some text..</p>
-
+        <div>
+            <h2>Lists of Restaurants</h2>
+        </div>
+        <hr>
+        <div id="response"></div>
     </div>
+
+    <!-- fetch data from API -->
+    <script>
+            //  GET request using fetch()
+            fetch('http://localhost:3000/getRestaurant')
+                // Converting received data to JSON
+                .then(response => response.json())
+                .then(users => {
+                    // Create a variable to store HTML
+                    let output = "";
+                    // Loop through each data
+                    users.forEach(function (user) {
+                        output += `
+                                <h3>Restaurant:   ${user.restaurant}</h3>
+                                <p>Reviwe Score:  ${user.review.point}</p>
+                                <p>Menu:   ${user.menu}</p>
+                                <p>Comment:   ${user.review.comment}</p>
+                                =========================================================================
+                        `;
+                    });
+                    // Display result
+                    document.getElementById("response").innerHTML = output;
+                });
+    </script>
 </body>
 
 </html>
